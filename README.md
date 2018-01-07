@@ -1,4 +1,4 @@
 # calculator
 
-Bu program linux ve windowsta çalışmaktadır.
-Oluşturduğumuz similasyonda kullanıcıdan 2 rakam alıp ve tekrar kullanıcının seçtiği operatör ile işlem yapmaktadır.
+This program works on Linux and Windows.
+Its takes 2 digits from the user in the similator that we created, and processes it again with the operator selected by the user.
