@@ -1,0 +1,103 @@
+TRISB=%11110000
+TRISD=%00000000
+
+
+SYMBOL raw1=portb.0
+symbol raw2=portb.1
+symbol raw3=portb.2
+symbol raw4=portb.3
+
+Symbol col1=portb.4
+symbol col2=portb.5
+symbol col3=portb.6
+symbol col4=portb.7
+i var byte
+
+k var byte
+number var byte
+operation var byte
+number1 var byte
+infinite var byte
+result var byte
+portD=0
+
+
+label:
+
+raw1=1: raw2=0: raw3=0: raw4=0
+    if col1=1 then i=7
+    if col2=1 then i=8
+    if col3=1 then i=9
+    if col4=1 then operation="/" : number1=i 
+    PAUSE 5
+raw2=1: raw1=0: raw3=0: raw4=0
+    if col1=1 then i=4
+    if col2=1 then i=5
+    if col3=1 then i=6
+    if col4=1 then operation="*" : number1=i 
+    pause 5
+raw3=1: raw2=0: raw1=0: raw4=0
+    if col1=1 then i=1
+    if col2=1 then i=2
+    if col3=1 then i=3
+    if col4=1 then operation="-" : number1=i 
+    pause 5
+raw4=1: raw1=0: raw2=0: raw3=0
+    
+    if col2=1 then i=0
+    if col4=1 then operation="+" : number1=i
+    if col3=1 then gosub hesapla    'eşittir
+    IF col1=1 Then
+       infinite=1 
+       while  infinite=1
+            raw4=1: raw1=0: raw2=0: raw3=0 
+            
+               i=0: number1=0: operation=0: result=0
+               portd=number
+               goto label
+           
+       wend
+     Endif       
+       
+    pause 5
+    
+gosub  show   
+goto label
+show:   
+        if i<10 then portd=i
+            if i>=10 then
+                k=i Dig 1
+                number=i+k*6
+                portd=number
+                
+                                             
+    endif
+ return
+ 
+ hesapla:
+    select case operation 
+        case "/"
+            result=number1/i
+        case "*"
+            result=number1*i
+        case "-"
+            result=number1-i
+        case "+"
+            result=number1+i
+    end select
+    
+        i=result
+        
+        gosub show
+        infinite=1
+        while  infinite=1
+             raw4=1: raw1=0: raw2=0: raw3=0 
+             if col1=1 then i=0: number1=0: operation=0: result=0:   goto label 
+        wend      
+        
+        
+             
+
+        
+ return
+ 
